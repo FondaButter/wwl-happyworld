@@ -1,0 +1,417 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #e66b96;
+    /* 圖片中的粉色背景 */
+    font-family: 'Press Start 2P', cursive;
+    /* 使用像素風字體 */
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    width: 100%;
+    height: 100vh;
+    /* 確保佔滿整個視窗高度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 0 0;
+    position: relative;
+
+}
+
+.game-container2 {
+    width: 100%;
+    height: 100vh;
+    /* 確保佔滿整個視窗高度 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 0 0;
+    position: relative;
+    align-items: center;
+
+}
+
+.header {
+    text-align: center;
+    margin-top: 30vh;
+}
+
+.title {
+    font-size: 24px;
+    color: #3c3c3c;
+    letter-spacing: 2px;
+    padding-bottom: 20px;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.start-btn {
+    width: 200px;
+    cursor: pointer;
+    transition: all 0.1s;
+    min-height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    /* 添加初始陰影 */
+    box-shadow: 0 8px 0 #b32d44, 0 8px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    top: 0;
+}
+
+/* 當圖片未加載時顯示預留樣式 */
+img:not([src]) {
+    visibility: hidden;
+}
+
+.heart::before {
+    content: "❤️";
+    font-size: 20px;
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 0 #b32d44, 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+.start-btn:active {
+    /* 點擊時下沉效果 */
+    top: 6px;
+    box-shadow: 0 2px 0 #b32d44, 0 2px 5px rgba(0, 0, 0, 0.3);
+    transform: translateY(0);
+}
+
+.footer {
+
+    height: 200px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.godzilla-container {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+
+}
+
+.godzilla {
+    width: 380px;
+    display: block;
+}
+
+
+
+.hearts-container {
+    overflow: hidden;
+    margin-left: 340px;
+    /* 避開左側的哥斯拉 */
+    margin-bottom: 50px;
+    /* 向上偏移一點，符合圖片佈局 */
+    flex-grow: 1;
+}
+
+.hearts-row {
+    display: flex;
+    gap: 20px;
+    animation: moveHearts 1.5s linear infinite;
+}
+
+@keyframes moveHearts {
+    0% {
+        transform: translateX(0);
+    }
+
+    80% {
+        transform: translateX(-70px);
+        /* 快速滑動到下一格 */
+    }
+
+    100% {
+        transform: translateX(-70px);
+        /* 停頓一下 */
+    }
+}
+
+.heart {
+    width: 50px;
+    height: auto;
+    image-rendering: pixelated;
+    /* 保持像素清晰 */
+    flex-shrink: 0;
+}
+
+
+/* --- 遊戲頁面樣式 --- */
+
+.game-page {
+    background-color: #e66b96;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.maze-wrapper {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 40px;
+    width: 95%;
+    max-width: 1000px;
+    /* 限制最大寬度，避免在大螢幕過大 */
+    aspect-ratio: 28 / 12;
+    /* 維持長寬比 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(28, 1fr);
+    grid-template-rows: repeat(11, 1fr);
+    gap: 1px;
+    background-color: #1a1a1a;
+    width: 100%;
+    height: 100%;
+}
+
+.cell {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.cell.wall {
+    background-color: transparent;
+    border: 1px solid #e66b96;
+    border-radius: 10%;
+    /* 使用百分比圓角 */
+}
+
+.cell.special-wall {
+    background-color: #e66b96;
+    border-radius: 20%;
+}
+
+.cell .heart-icon {
+    width: 60%;
+    /* 改用百分比 */
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.player-icon {
+    width: 90%;
+    /* 改用百分比 */
+    height: auto;
+    z-index: 10;
+    image-rendering: pixelated;
+    transition: all 0.1s ease;
+}
+
+/* 控制鈕區域 */
+.controls-container {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    padding-bottom: 40px;
+}
+
+.directional-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-row {
+    display: flex;
+    gap: 13px;
+    padding-bottom: 13px;
+}
+
+.control-btn-wrapper {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.1s;
+}
+
+.control-btn {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* 預設為 start-btn.png，可修改 */
+
+    box-shadow: 0 4px 0 #2a0e18;
+
+}
+
+.control-btn.up {
+    transform: rotate(0deg);
+}
+
+.control-btn.left {
+    transform: rotate(-90deg);
+}
+
+.control-btn.down {
+    transform: rotate(180deg);
+}
+
+.control-btn.right {
+    transform: rotate(90deg);
+}
+
+.control-btn-wrapper:active {
+    transform: translateY(4px);
+}
+
+.control-btn-wrapper:active .control-btn {
+    box-shadow: 0 0 0 #2a0e18;
+}
+
+/* 重置按鈕 */
+.reset-container {
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+}
+
+.reset-btn {
+    background: #fff;
+    border: 4px solid #000;
+    cursor: pointer;
+    position: relative;
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s;
+    box-shadow: 4px 4px 0 #000;
+}
+
+.reset-img {
+    display: none;
+    /* 如果有 png 則顯示，這裡先用純文字樣式 */
+}
+
+.reset-text {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 14px;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.reset-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000;
+}
+
+/* 遊戲頁面響應式調整 */
+@media (max-width: 768px) {
+    .controls-container {
+        padding-bottom: 20px;
+
+    }
+
+    .game-container {
+        width: 100%;
+        height: 100vh;
+    }
+
+    /* 縮小方向鍵 */
+    .control-btn-wrapper {
+        width: 70px;
+        height: 70px;
+    }
+
+    .btn-row {
+        gap: 10px;
+        padding-bottom: 10px;
+        /* 增加一點間距讓手指更好按 */
+    }
+
+    .maze-wrapper {
+        padding: 10px;
+        border-radius: 10px;
+
+    }
+
+    /* Reset 按鈕移至正下方中央 */
+    .reset-container {
+        position: static;
+        /* 取消絕對定位 */
+        margin-top: 30px;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        right: auto;
+        bottom: auto;
+    }
+
+    .reset-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Index 頁面響應式調整 */
+@media screen and (max-width: 768px) {
+    .header {
+        margin-top: 15vh;
+    }
+
+    .title {
+        font-size: 15px;
+    }
+
+    .start-btn {
+        width: 180px;
+        min-height: 50px;
+    }
+
+    .footer {
+        height: 150px;
+    }
+
+    .godzilla {
+        width: 250px;
+    }
+
+    .hearts-container {
+        margin-left: 220px;
+        margin-bottom: 30px;
+    }
+
+    .heart {
+        width: 40px;
+    }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Happy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="assets/webicon.png" />
+</head>
+
+<body class="game-page">
+  <div class="game-container2">
+    <div class="maze-wrapper">
+      <div id="game-board" class="game-board">
+        <!-- Maze will be generated here by JS -->
+      </div>
+    </div>
+
+    <div class="controls-container">
+      <div class="directional-buttons">
+        <div class="btn-row">
+          <div class="control-btn-wrapper">
+            <img src="assets/btn-up.png" alt="UP" class="control-btn up" id="btn-up">
+          </div>
+        </div>
+        <div class="btn-row">
+          <div class="control-btn-wrapper">
+            <img src="assets/btn-left.png" alt="LEFT" class="control-btn left" id="btn-left">
+          </div>
+          <div class="control-btn-wrapper">
+            <img src="assets/btn-down.png" alt="DOWN" class="control-btn down" id="btn-down">
+          </div>
+          <div class="control-btn-wrapper">
+            <img src="assets/btn-right.png" alt="RIGHT" class="control-btn right" id="btn-right">
+          </div>
+        </div>
+      </div>
+
+      <div class="reset-container">
+        <button id="reset-btn" class="reset-btn">
+          <span class="reset-text">RESET</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+
+</html>
